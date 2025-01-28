@@ -67,6 +67,12 @@
       .modal-content button:hover {
         background-color: #e55342;
       }
+
+      /* 小窗样式 */
+      .back-button {
+        margin-top: 20px;
+        font-size: 1.2em;
+      }
     </style>
   </head>
   <body>
@@ -84,6 +90,10 @@
           or
           <button id="fatherButton">义父</button>
         </p>
+        <!-- 新增的回退按钮 -->
+        <div class="back-button">
+          <button id="backButton">回到首页</button>
+        </div>
       </div>
     </div>
 
@@ -91,7 +101,7 @@
       function updateCountdown() {
         const now = new Date();
         const midnight = new Date();
-        midnight.setHours(4, 0, 0, 0); // 设置为今晚12点
+        midnight.setHours(0, 0, 0, 0); // 设置为今晚12点
 
         const timeLeft = midnight - now; // 计算剩余时间（毫秒）
 
@@ -121,8 +131,19 @@
         window.location.href = "d2.html"; // 跳转到新页面，显示义父祝福
       };
 
+      // 回到首页按钮
+      document.getElementById("backButton").onclick = function () {
+        window.location.href = "index.html"; // 跳转到首页
+      };
+
       // 每秒钟更新一次倒计时
       const interval = setInterval(updateCountdown, 1000);
     </script>
   </body>
 </html>
+
+<!-- <button>
+      <p>
+        <a href="index.html" style="color: #e55342"> 回退</a>
+      </p>
+    </button> -->
