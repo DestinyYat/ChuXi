@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>倒计时</title>
+    <title>倒计时与祝福</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -30,12 +30,61 @@
       .countdown span {
         font-size: 1.5em;
       }
+
+      /* 模态框样式 */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 300px;
+      }
+
+      .modal-content button {
+        padding: 10px 20px;
+        font-size: 1.2em;
+        margin: 10px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #ff6347;
+        color: white;
+        transition: background-color 0.3s ease;
+      }
+
+      .modal-content button:hover {
+        background-color: #e55342;
+      }
     </style>
   </head>
   <body>
     <div class="countdown" id="countdown">
       <p>距离今晚12点还有:</p>
       <p id="timer">加载中...</p>
+    </div>
+
+    <!-- 模态框 -->
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <p>除夕之夜，新年之初，新年快乐，我的__：</p>
+        <p style="font-size: 25px">
+          <button id="friendButton">朋友</button>
+          or
+          <button id="fatherButton">义父</button>
+        </p>
+      </div>
     </div>
 
     <script>
@@ -54,12 +103,23 @@
           "timer"
         ).innerHTML = `${hours}小时 ${minutes}分钟 ${seconds}秒`;
 
-        // 如果时间到，显示"倒计时结束"
+        // 如果时间到，显示模态框
         if (timeLeft <= 0) {
           document.getElementById("timer").innerHTML = "倒计时结束！";
           clearInterval(interval); // 停止更新
+          document.getElementById("modal").style.display = "flex"; // 显示模态框
         }
       }
+
+      // 选择"朋友"按钮
+      document.getElementById("friendButton").onclick = function () {
+        window.location.href = "d1.html"; // 跳转到新页面，显示朋友祝福
+      };
+
+      // 选择"义父"按钮
+      document.getElementById("fatherButton").onclick = function () {
+        window.location.href = "d2.html"; // 跳转到新页面，显示义父祝福
+      };
 
       // 每秒钟更新一次倒计时
       const interval = setInterval(updateCountdown, 1000);
