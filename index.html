@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>烟花绽放</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+        }
+        .firework {
+            position: absolute;
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            animation: rise 2s forwards, explode 2s 2s forwards;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-300px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translateY(-300px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-300px);
+                opacity: 0;
+                box-shadow: 0 0 50px rgba(255, 255, 255, 0);
+            }
+        }
+
+        .spark {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #ff0;
+            animation: spark 1.5s forwards;
+        }
+
+        @keyframes spark {
+            0% {
+                transform: scale(1) translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0) translateY(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function createFirework(x, y) {
+            const firework = document.createElement('div');
+            firework.classList.add('firework');
+            firework.style.left = `${x - 5}px`; // Centering the firework
+            firework.style.top = `${y - 5}px`; // Centering the firework
+            document.body.appendChild(firework);
+
+            // Create sparks
+            for (let i = 0; i < 30; i++) {
+                const spark = document.createElement('div');
+                spark.classList.add('spark');
+                spark.style.left = `${x + Math.random() * 100 - 50}px`;
+                spark.style.top = `${y - 300 + Math.random() * 50}px`;
+                spark.style.animationDuration = `${Math.random() * 0.5 + 1}s`;
+                spark.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                document.body.appendChild(spark);
+            }
+
+            // Remove firework and sparks after animation
+            setTimeout(() => {
+                firework.remove();
+                const sparks = document.querySelectorAll('.spark');
+                sparks.forEach(spark => spark.remove());
+            }, 4000);
+        }
+
+        // Trigger fireworks on click
+        document.body.addEventListener('click', (e) => {
+            createFirework(e.clientX, e.clientY);
+        });
+    </script>
+</body>
+</html>
